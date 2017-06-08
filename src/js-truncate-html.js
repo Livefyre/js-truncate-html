@@ -25,17 +25,17 @@
 
 			truncate: function(inputHtmlContent, expectedLength) {
 
-				let stack = [];
-				let output = '';
-				let outputLength = 0;
-				let exit = false;
+				var stack = [];
+				var output = '';
+				var outputLength = 0;
+				var exit = false;
 
-				let htmlContent =  this.decodeHtml(inputHtmlContent);
+				var htmlContent =  this.decodeHtml(inputHtmlContent);
 				//expectedLength += htmlContent.
 
 				while (expectedLength > outputLength && exit == false) {
-			    	let openingTagStartIndex = htmlContent.indexOf('<');
-			    	let openingTagEndIndex = htmlContent.indexOf('>');
+			    	var openingTagStartIndex = htmlContent.indexOf('<');
+			    	var openingTagEndIndex = htmlContent.indexOf('>');
 
 			    	//If no further html tags are found slice and return remaining required string
 			    	if (openingTagStartIndex < 0) {
@@ -43,13 +43,13 @@
 			    		break;
 			    	} else if (openingTagStartIndex > 0) {
 						//Extract text fragment before start tag
-						let textFragment = htmlContent.slice(0, openingTagStartIndex);
+						var textFragment = htmlContent.slice(0, openingTagStartIndex);
 
 
 						//Append text fragment to output
-						let textFragmentLength = textFragment.length;
-						let requiredContentLength = expectedLength - outputLength;
-						let outputFragment = textFragment.slice(0, requiredContentLength);
+						var textFragmentLength = textFragment.length;
+						var requiredContentLength = expectedLength - outputLength;
+						var outputFragment = textFragment.slice(0, requiredContentLength);
 						output = output + this.encodeHtml(outputFragment);
 						outputLength += outputFragment.length;
 
@@ -74,7 +74,7 @@
 					}
 
 					//Get opening tag fragment
-					let openingTagFragment = htmlContent.slice(openingTagStartIndex, openingTagEndIndex + 1)
+					var openingTagFragment = htmlContent.slice(openingTagStartIndex, openingTagEndIndex + 1)
 					//Append opening tag fragment to output
 					output += openingTagFragment;
 
@@ -84,7 +84,7 @@
 
 					} else {
 						//Store tags to be closed at the end
-						let tagName = openingTagFragment.slice(1, openingTagFragment.indexOf(' '));
+						var tagName = openingTagFragment.slice(1, openingTagFragment.indexOf(' '));
 						stack.push(tagName);
 					}
 
@@ -104,13 +104,13 @@
 			},
 
 			decodeHtml: function (encodedHtml) {
-				let virualDOM = document.createElement("textarea");
+				var virualDOM = document.createElement("textarea");
 				virualDOM.innerHTML = encodedHtml;
 				return virualDOM.value;
 			},
 
 			encodeHtml: function (decodeHtml) {
-				let virtualDOM = document.createElement("div");
+				var virtualDOM = document.createElement("div");
 				return virtualDOM.appendChild(document.createTextNode(decodeHtml)).parentNode.innerHTML;
 			}
 		}
